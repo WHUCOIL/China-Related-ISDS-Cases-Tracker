@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>China-Related ISDS Cases Tracker | Case Data</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+</head>
+<body>
+    <header>
+        <div class="nav">
+            <h1>China-Related ISDS Cases Tracker</h1>
+            <nav>
+                <a href="index.html">Home</a>
+                <a href="case_data.html" aria-current="page">Case Data</a>
+                <a href="dispute_analysis.html">Key Issues Analysis</a>
+                <a href="resources.html">Resources</a>
+                <a href="research_outputs.html">Research Outputs</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="section">
+            <div class="section-heading">
+                <div>
+                    <h2>Case Data</h2>
+                    <span>COMPREHENSIVE DATASET</span>
+                </div>
+                <div class="tabs">
+                    <button class="tab-button tab-blue active" onclick="switchMainTab('claimants', this)">Chinese Investors as Claimants</button>
+                    <button class="tab-button tab-gray" onclick="switchMainTab('respondents', this)">China as Respondents</button>
+                </div>
+            </div>
+
+            <!-- Chinese Investors as Claimants Tab -->
+            <div id="claimants-tab" class="tab-content active">
+                <div class="data-container">
+                    <!-- Sidebar Navigation -->
+                    <aside class="sidebar">
+                        <nav class="sidebar-nav">
+                            <button class="sidebar-btn active" onclick="scrollToSection('claimants', 'charts', this)">
+                                <span>📊</span> Visualizations
+                            </button>
+                            <button class="sidebar-btn" onclick="scrollToSection('claimants', 'table', this)">
+                                <span>📋</span> Case Data & Details
+                            </button>
+                        </nav>
+                    </aside>
+
+                    <!-- Main Content Area -->
+                    <div class="main-content">
+                        <!-- Charts View -->
+                        <section id="claimants-charts" class="content-section">
+                            <div class="section-heading" style="margin-top: 0; border-bottom: none; padding-bottom: 0;">
+                                <h3>Chinese Investors as Claimants - Visualizations</h3>
+                                <span>DATA VISUALIZATION</span>
+            </div>
+            <p class="intro">
+                                Interactive charts showing trends and statistics for cases where Chinese investors have initiated ISDS proceedings.
+                            </p>
+
+                            <div class="card">
+                                <h4>Cases by Year of Initiation</h4>
+                                <canvas id="claimants-chart1"></canvas>
+                            </div>
+
+                            <div class="card">
+                                <h4>Cases by Status</h4>
+                                <canvas id="claimants-chart3"></canvas>
+            </div>
+        </section>
+        
+                        <!-- Table View -->
+                        <section id="claimants-table" class="content-section">
+                            <div class="section-heading" style="margin-top: 48px; border-bottom: none; padding-bottom: 0;">
+                                <h3>Chinese Investors as Claimants - Case Data & Details</h3>
+                                <span>COMPREHENSIVE DATASET</span>
+                            </div>
+                            <p class="intro">
+                                Complete case information with search and filter capabilities.
+                            </p>
+                            
+                            <div class="card">
+                                <div class="table-controls">
+                                    <input type="text" id="claimants-search" placeholder="Search cases..." class="search-input" onkeyup="filterTable('claimants')">
+                                    <select id="claimants-status-filter" class="filter-select" onchange="filterTable('claimants')">
+                                        <option value="">All Status</option>
+                                    </select>
+                                    <div class="table-info" id="claimants-table-info"></div>
+                                </div>
+                                <div id="claimants-loading" class="loading-indicator" style="display: none;">
+                                    <p>Loading data...</p>
+                                </div>
+                                <div class="table-wrapper">
+                                    <table id="claimants-data-table" class="data-table">
+                                        <thead></thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                                <div class="pagination" id="claimants-pagination"></div>
+                            </div>
+                        </section>
+                        
+                        <!-- Case Details Modal -->
+                        <div id="claimants-case-details" class="case-details-modal" style="display: none;">
+                            <div class="case-details-content">
+                                <span class="case-details-close" onclick="closeCaseDetails('claimants')">&times;</span>
+                                <h3 id="claimants-case-details-title">Case Details</h3>
+                                <div id="claimants-case-details-table"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- China as Respondents Tab -->
+            <div id="respondents-tab" class="tab-content">
+                <div class="data-container">
+                    <!-- Sidebar Navigation -->
+                    <aside class="sidebar">
+                        <nav class="sidebar-nav">
+                            <button class="sidebar-btn active" onclick="scrollToSection('respondents', 'charts', this)">
+                                <span>📊</span> Visualizations
+                            </button>
+                            <button class="sidebar-btn" onclick="scrollToSection('respondents', 'table', this)">
+                                <span>📋</span> Case Data & Details
+                            </button>
+                        </nav>
+                    </aside>
+
+                    <!-- Main Content Area -->
+                    <div class="main-content">
+                        <!-- Charts View -->
+                        <section id="respondents-charts" class="content-section">
+                            <div class="section-heading" style="margin-top: 0; border-bottom: none; padding-bottom: 0;">
+                                <h3>China as Respondents - Visualizations</h3>
+                                <span>DATA VISUALIZATION</span>
+                            </div>
+                            <p class="intro">
+                                Interactive charts showing trends and statistics for cases where China has been named as a respondent.
+                            </p>
+
+                            <div class="card">
+                                <h4>Cases by Year of Initiation</h4>
+                                <canvas id="respondents-chart1"></canvas>
+                            </div>
+
+                            <div class="card">
+                                <h4>Cases by Status</h4>
+                                <canvas id="respondents-chart3"></canvas>
+                            </div>
+                        </section>
+
+                        <!-- Table View -->
+                        <section id="respondents-table" class="content-section">
+                            <div class="section-heading" style="margin-top: 48px; border-bottom: none; padding-bottom: 0;">
+                                <h3>China as Respondents - Case Data & Details</h3>
+                                <span>COMPREHENSIVE DATASET</span>
+                            </div>
+                            <p class="intro">
+                                Complete case information with search and filter capabilities.
+                            </p>
+                            
+                            <div class="card">
+                                <div class="table-controls">
+                                    <input type="text" id="respondents-search" placeholder="Search cases..." class="search-input" onkeyup="filterTable('respondents')">
+                                    <select id="respondents-status-filter" class="filter-select" onchange="filterTable('respondents')">
+                                        <option value="">All Status</option>
+                                    </select>
+                                    <div class="table-info" id="respondents-table-info"></div>
+                                </div>
+                                <div id="respondents-loading" class="loading-indicator" style="display: none;">
+                                    <p>Loading data...</p>
+                                </div>
+                                <div class="table-wrapper">
+                                    <table id="respondents-data-table" class="data-table">
+                                        <thead></thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                                <div class="pagination" id="respondents-pagination"></div>
+                            </div>
+                        </section>
+                        
+                        <!-- Case Details Modal -->
+                        <div id="respondents-case-details" class="case-details-modal" style="display: none;">
+                            <div class="case-details-content">
+                                <span class="case-details-close" onclick="closeCaseDetails('respondents')">&times;</span>
+                                <h3 id="respondents-case-details-title">Case Details</h3>
+                                <div id="respondents-case-details-table"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Global data storage
+        let claimantsData = [];
+        let respondentsData = [];
+        let allCharts = {};
+
+        // CSV file paths - update these with your actual CSV file paths
+        const CSV_PATHS = {
+            claimants: 'data/claimant.csv',
+            respondents: 'data/respondent.csv'
+        };
+
+        // Main tab switching
+        function switchMainTab(tabName, button) {
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(tab => tab.classList.remove('active'));
+            
+            const tabButtons = document.querySelectorAll('.tab-button');
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+            
+            document.getElementById(tabName + '-tab').classList.add('active');
+            button.classList.add('active');
+
+            // Load data when switching tabs
+            if (tabName === 'claimants' && claimantsData.length === 0) {
+                loadCSV('claimants');
+                setTimeout(() => {
+                    initScrollSpy('claimants');
+                }, 1000);
+            } else if (tabName === 'respondents' && respondentsData.length === 0) {
+                loadCSV('respondents');
+                setTimeout(() => {
+                    initScrollSpy('respondents');
+                }, 1000);
+            } else {
+                setTimeout(() => {
+                    initScrollSpy(tabName);
+                }, 100);
+            }
+        }
+
+        // Sidebar scroll to section
+        function scrollToSection(type, section, button) {
+            const sidebarBtns = document.querySelectorAll(`#${type}-tab .sidebar-btn`);
+            sidebarBtns.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+
+            const targetSection = document.getElementById(`${type}-${section}`);
+            if (targetSection) {
+                const offset = 100; // Offset for sticky header
+                const elementPosition = targetSection.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - offset;
+
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        }
+
+        // Column name mapping to English
+        const columnMapping = {
+            'No': 'No',
+            'Number ': 'No',
+            'Case Name': 'Case Name',
+            'Case Number': 'Case Number',
+            'Case Number ': 'Case Number',
+            'Year of Initiation': 'Year of Initiation',
+            'Time ': 'Time',
+            'Claimant': 'Claimant',
+            ' Claimant': 'Claimant',
+            'Claimant-mainland/HK/Macau': 'Claimant Type',
+            'Claimant-nationality': 'Claimant Type',
+            'Representatives for Claimant': 'Claimant Representatives',
+            'Arbitrator appointed by Claimant': 'Claimant Arbitrator',
+            'Arbitrator appointed by Claimant ': 'Claimant Arbitrator',
+            'Respondent': 'Respondent',
+            'Respondent ': 'Respondent',
+            'Representatives for Respondent': 'Respondent Representatives',
+            'Arbitrator appointed by Respondent': 'Respondent Arbitrator',
+            'President of Tribunal': 'Tribunal President',
+            'Instrument(s) Invoked': 'Instrument(s) Invoked',
+            'Arbitration Rule': 'Arbitration Rule',
+            'Administrative Institution': 'Administrative Institution',
+            'Subject of Dispute': 'Subject of Dispute',
+            'Status': 'Status',
+            'duration of the arbitral proceedings (Years)': 'Duration (Years)',
+            'Disputing Issues': 'Disputing Issues',
+            'Detail Summary': 'Detail Summary',
+            'Official Link': 'Official Link',
+            'Media Link 1': 'Media Link 1',
+            'Media Link 2': 'Media Link 2',
+            'Media Link 3': 'Media Link 3'
+        };
+
+        function getEnglishColumnName(columnName) {
+            return columnMapping[columnName] || columnName;
+        }
+
+        // Filter out empty/invalid rows
+        function filterValidRows(data) {
+            if (!data || !Array.isArray(data)) return [];
+            
+            let filteredCount = 0;
+            const filtered = data.filter((row, index) => {
+                // Check if row is null or undefined
+                if (!row || typeof row !== 'object') {
+                    filteredCount++;
+                    return false;
+                }
+                
+                // Use "No" field to identify valid data rows
+                // A valid row should have a "No" field that is a number or can be parsed as a number
+                const rowNo = row['No'] || row['Number '] || '';
+                const noStr = String(rowNo).trim();
+                
+                // Check if No field is a valid number (1, 2, 3, etc.)
+                const isValidNo = noStr !== '' && !isNaN(parseInt(noStr)) && parseInt(noStr) > 0;
+                
+                // Also check if Case Name exists (as secondary check)
+                const caseName = row['Case Name'] || '';
+                const hasCaseName = String(caseName).trim().length > 0;
+                
+                // Keep row if it has a valid No field OR has a Case Name
+                if (isValidNo || hasCaseName) {
+                    return true;
+                }
+                
+                // Log filtered rows for debugging
+                if (index < 30) { // Only log first 30 to avoid spam
+                    console.log(`Row ${index} filtered:`, {
+                        No: rowNo,
+                        CaseName: caseName,
+                        isValidNo: isValidNo,
+                        hasCaseName: hasCaseName
+                    });
+                }
+                filteredCount++;
+                return false;
+            });
+            
+            console.log(`filterValidRows: ${data.length} total rows, ${filteredCount} filtered, ${filtered.length} kept`);
+            
+            // Log all case numbers found
+            const caseNumbers = filtered.map(row => {
+                const no = row['No'] || row['Number '] || '';
+                return String(no).trim();
+            }).filter(n => n !== '').sort((a, b) => parseInt(a) - parseInt(b));
+            console.log('Case numbers found:', caseNumbers);
+            
+            return filtered;
+        }
+
+        // Pagination state
+        const paginationState = {
+            claimants: { currentPage: 1, pageSize: 50, filteredData: [] },
+            respondents: { currentPage: 1, pageSize: 50, filteredData: [] }
+        };
+
+        // Load CSV data
+        function loadCSV(type) {
+            const csvPath = CSV_PATHS[type];
+            const loadingEl = document.getElementById(`${type}-loading`);
+            
+            // Show loading indicator
+            if (loadingEl) loadingEl.style.display = 'block';
+            
+            // Try using fetch first (works with HTTP server)
+            fetch(csvPath)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.text();
+                })
+                .then(csvText => {
+                    // Parse CSV in chunks to avoid blocking
+                    setTimeout(() => {
+                        Papa.parse(csvText, {
+                            header: true,
+                            skipEmptyLines: false, // Don't skip empty lines - we'll filter manually
+                            worker: false, // Disable worker to avoid issues with large files
+                            newline: '\n', // Explicitly set newline character
+                            quoteChar: '"', // Handle quoted fields
+                            escapeChar: '"', // Handle escaped quotes
+                            complete: function(results) {
+                                if (loadingEl) loadingEl.style.display = 'none';
+                                
+                                console.log(`PapaParse results: ${results.data.length} rows parsed`);
+                                
+                                // Filter out empty/invalid rows
+                                const filteredData = filterValidRows(results.data);
+                                
+                                console.log(`After filtering: ${filteredData.length} valid rows`);
+                                
+                                if (type === 'claimants') {
+                                    claimantsData = filteredData;
+                                    // Render charts first (faster)
+                                    renderCharts('claimants', claimantsData);
+                                    // Render table with delay to avoid blocking
+                                    setTimeout(() => {
+                                        renderTable('claimants', claimantsData);
+                                    }, 100);
+                                } else {
+                                    respondentsData = filteredData;
+                                    renderCharts('respondents', respondentsData);
+                                    setTimeout(() => {
+                                        renderTable('respondents', respondentsData);
+                                    }, 100);
+                                }
+                            },
+                            error: function(error) {
+                                if (loadingEl) loadingEl.style.display = 'none';
+                                console.error('Error parsing CSV:', error);
+                                showError(type, csvPath, error);
+                            }
+                        });
+                    }, 50);
+                })
+                .catch(error => {
+                    if (loadingEl) loadingEl.style.display = 'none';
+                    console.error('Error loading CSV:', error);
+                    // Fallback to Papa.parse download method
+                    Papa.parse(csvPath, {
+                        download: true,
+                        header: true,
+                        skipEmptyLines: false, // Don't skip empty lines - we'll filter manually
+                        worker: false, // Disable worker to avoid issues with large files
+                        newline: '\n', // Explicitly set newline character
+                        quoteChar: '"', // Handle quoted fields
+                        escapeChar: '"', // Handle escaped quotes
+                        complete: function(results) {
+                            console.log(`PapaParse results: ${results.data.length} rows parsed`);
+                            
+                            // Filter out empty/invalid rows
+                            const filteredData = filterValidRows(results.data);
+                            
+                            console.log(`After filtering: ${filteredData.length} valid rows`);
+                            
+                            if (type === 'claimants') {
+                                claimantsData = filteredData;
+                                renderCharts('claimants', claimantsData);
+                                setTimeout(() => {
+                                    renderTable('claimants', claimantsData);
+                                }, 100);
+                            } else {
+                                respondentsData = filteredData;
+                                renderCharts('respondents', respondentsData);
+                                setTimeout(() => {
+                                    renderTable('respondents', respondentsData);
+                                }, 100);
+                            }
+                        },
+                        error: function(error) {
+                            console.error('Error loading CSV:', error);
+                            showError(type, csvPath, error);
+                        }
+                    });
+                });
+        }
+
+        function showError(type, csvPath, error) {
+            const errorMsg = `Error loading ${type} data from: ${csvPath}\n\n` +
+                           `Possible solutions:\n` +
+                           `1. Use a local web server (run start_server.py)\n` +
+                           `2. Check that the CSV file exists at the specified path\n` +
+                           `3. Open browser console (F12) for more details\n\n` +
+                           `Error: ${error.message || error}`;
+            alert(errorMsg);
+        }
+
+        // Render charts
+        function renderCharts(type, data) {
+            // Chart 1: Cases by Year (Bar + Line combination)
+            const yearData = {};
+            let totalCases = 0;
+            let casesWithValidYear = 0;
+            let casesWithoutYear = 0;
+            let casesOutsideRange = 0;
+            
+            data.forEach(row => {
+                totalCases++;
+                const year = row['Year of Initiation'] || '';
+                const yearStr = String(year).trim();
+                
+                if (yearStr === '' || yearStr === 'Unknown') {
+                    casesWithoutYear++;
+                    console.log(`Case without year:`, row['Case Name']);
+                } else {
+                    // Extract year - try to find 4-digit year in the string
+                    // Handle cases like "2017-present" or "2010-2017"
+                    const yearMatch = yearStr.match(/\b(19|20)\d{2}\b/);
+                    let yearNum = null;
+                    
+                    if (yearMatch) {
+                        yearNum = parseInt(yearMatch[0]);
+                    } else {
+                        // Fallback to direct parseInt
+                        yearNum = parseInt(yearStr);
+                    }
+                    
+                    if (isNaN(yearNum) || yearNum < 1900 || yearNum > 2100) {
+                        casesWithoutYear++;
+                        console.log(`Case with invalid year format: "${yearStr}"`, row['Case Name']);
+                    } else if (yearNum >= 2007 && yearNum <= 2025) {
+                        yearData[yearNum] = (yearData[yearNum] || 0) + 1;
+                        casesWithValidYear++;
+                    } else {
+                        casesOutsideRange++;
+                        console.log(`Case with year outside range (2007-2025): ${yearNum}`, row['Case Name']);
+                    }
+                }
+            });
+            
+            // Log statistics for debugging
+            console.log(`Chart 1 Statistics for ${type}:`);
+            console.log(`  Total cases: ${totalCases}`);
+            console.log(`  Cases with valid year (2007-2025): ${casesWithValidYear}`);
+            console.log(`  Cases without year: ${casesWithoutYear}`);
+            console.log(`  Cases outside range: ${casesOutsideRange}`);
+            
+            // Generate all years from 2007 to 2025
+            const allYears = [];
+            for (let year = 2007; year <= 2025; year++) {
+                allYears.push(year);
+            }
+            
+            // Create data arrays with all years, using 0 for years with no data
+            const yearCounts = allYears.map(year => yearData[year] || 0);
+            
+            // Calculate cumulative counts for line chart
+            const cumulativeCounts = [];
+            let cumulative = 0;
+            yearCounts.forEach(count => {
+                cumulative += count;
+                cumulativeCounts.push(cumulative);
+            });
+
+            const ctx1 = document.getElementById(`${type}-chart1`).getContext('2d');
+            if (allCharts[`${type}-chart1`]) {
+                allCharts[`${type}-chart1`].destroy();
+            }
+            allCharts[`${type}-chart1`] = new Chart(ctx1, {
+                type: 'bar',
+                data: {
+                    labels: allYears.map(y => String(y)),
+                    datasets: [
+                        {
+                            type: 'bar',
+                            label: 'Cases per Year',
+                            data: yearCounts,
+                            backgroundColor: 'rgba(11, 31, 58, 0.8)',
+                            borderColor: 'rgba(11, 31, 58, 1)',
+                            borderWidth: 1,
+                            yAxisID: 'y'
+                        },
+                        {
+                            type: 'line',
+                            label: 'Cumulative Cases',
+                            data: cumulativeCounts,
+                            borderColor: 'rgba(200, 155, 60, 1)',
+                            backgroundColor: 'rgba(200, 155, 60, 0.1)',
+                            borderWidth: 2,
+                            fill: false,
+                            tension: 0.4,
+                            pointRadius: 4,
+                            pointBackgroundColor: 'rgba(200, 155, 60, 1)',
+                            pointBorderColor: '#fff',
+                            pointBorderWidth: 2,
+                            yAxisID: 'y1'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    interaction: {
+                        mode: 'index',
+                        intersect: false,
+                    },
+                    scales: {
+                        y: {
+                            type: 'linear',
+                            display: true,
+                            position: 'left',
+                            beginAtZero: true,
+                            ticks: {
+                                stepSize: 1
+                            },
+                            title: {
+                                display: true,
+                                text: 'Cases per Year'
+                            }
+                        },
+                        y1: {
+                            type: 'linear',
+                            display: true,
+                            position: 'right',
+                            beginAtZero: true,
+                            grid: {
+                                drawOnChartArea: false,
+                            },
+                            title: {
+                                display: true,
+                                text: 'Cumulative Cases'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'top'
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    label += context.parsed.y;
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Chart 3: Cases by Status (Pie/Doughnut)
+            const statusData = {};
+            data.forEach(row => {
+                const status = row['Status'] || 'Unknown';
+                statusData[status] = (statusData[status] || 0) + 1;
+            });
+            const statuses = Object.keys(statusData);
+            const statusCounts = statuses.map(s => statusData[s]);
+
+            const ctx3 = document.getElementById(`${type}-chart3`).getContext('2d');
+            if (allCharts[`${type}-chart3`]) {
+                allCharts[`${type}-chart3`].destroy();
+            }
+            // Generate distinct colors for each status
+            // Academic color palette: deep blue, gold, teal, burgundy, forest green, slate, navy, bronze
+            const academicColors = [
+                'rgba(11, 31, 58, 0.95)',      // Deep navy blue (primary)
+                'rgba(200, 155, 60, 0.95)',    // Gold accent
+                'rgba(0, 102, 102, 0.95)',     // Teal
+                'rgba(139, 69, 19, 0.95)',     // Saddle brown
+                'rgba(34, 68, 102, 0.95)',     // Steel blue
+                'rgba(153, 102, 51, 0.95)',    // Bronze
+                'rgba(72, 61, 139, 0.95)',     // Dark slate blue
+                'rgba(85, 107, 47, 0.95)',     // Olive drab
+                'rgba(128, 0, 32, 0.95)',      // Burgundy
+                'rgba(25, 25, 112, 0.95)',     // Midnight blue
+                'rgba(184, 134, 11, 0.95)',    // Dark goldenrod
+                'rgba(47, 79, 79, 0.95)'       // Dark slate gray
+            ];
+            
+            // Assign colors to statuses, cycling through the palette if needed
+            const statusColors = statuses.map((status, index) => {
+                return academicColors[index % academicColors.length];
+            });
+            
+            allCharts[`${type}-chart3`] = new Chart(ctx3, {
+                type: 'doughnut',
+                data: {
+                    labels: statuses,
+                    datasets: [{
+                        data: statusCounts,
+                        backgroundColor: statusColors,
+                        borderColor: 'rgba(255, 255, 255, 1)',
+                        borderWidth: 2.5,
+                        hoverBorderWidth: 3,
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    cutout: '60%', // Doughnut hole size
+                    plugins: {
+                        legend: {
+                            position: 'right',
+                            labels: {
+                                padding: 15,
+                                font: {
+                                    size: 13,
+                                    weight: '500'
+                                },
+                                usePointStyle: true,
+                                pointStyle: 'circle'
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(11, 31, 58, 0.95)',
+                            padding: 12,
+                            titleFont: {
+                                size: 14,
+                                weight: '600'
+                            },
+                            bodyFont: {
+                                size: 13
+                            },
+                            borderColor: 'rgba(200, 155, 60, 0.5)',
+                            borderWidth: 1,
+                            callbacks: {
+                                label: function(context) {
+                                    const label = context.label || '';
+                                    const value = context.parsed || 0;
+                                    const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                    const percentage = ((value / total) * 100).toFixed(1);
+                                    return `${label}: ${value} (${percentage}%)`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Define main table columns (simplified view)
+        const mainTableColumns = [
+            'No',
+            'Case Name',
+            'Year of Initiation',
+            'Instrument(s) Invoked',
+            'Arbitration Rule',
+            'Subject of Dispute',
+            'Status'
+        ];
+
+        // Render table with pagination
+        function renderTable(type, data) {
+            if (data.length === 0) return;
+
+            const table = document.getElementById(`${type}-data-table`);
+            const thead = table.querySelector('thead');
+            const tbody = table.querySelector('tbody');
+
+            // Create header with only main columns
+            thead.innerHTML = '<tr>' + mainTableColumns.map(col => {
+                const englishName = getEnglishColumnName(col);
+                return `<th>${englishName}</th>`;
+            }).join('') + '</tr>';
+
+            // Store original data
+            window[`${type}TableData`] = data;
+            paginationState[type].filteredData = data;
+
+            // Populate status filter
+            const statusFilter = document.getElementById(`${type}-status-filter`);
+            const statuses = [...new Set(data.map(row => row['Status'] || 'Unknown'))].sort();
+            statusFilter.innerHTML = '<option value="">All Status</option>' + 
+                statuses.map(s => `<option value="${s}">${s}</option>`).join('');
+
+            // Render first page
+            renderTablePage(type, 1);
+        }
+
+        // Render table page
+        function renderTablePage(type, page) {
+            const state = paginationState[type];
+            const data = state.filteredData;
+            const pageSize = state.pageSize;
+            const totalPages = Math.ceil(data.length / pageSize);
+            const start = (page - 1) * pageSize;
+            const end = Math.min(start + pageSize, data.length);
+            const pageData = data.slice(start, end);
+
+            const table = document.getElementById(`${type}-data-table`);
+            const tbody = table.querySelector('tbody');
+            const tableInfo = document.getElementById(`${type}-table-info`);
+            const pagination = document.getElementById(`${type}-pagination`);
+
+            // Use only main table columns
+            const columns = mainTableColumns;
+
+            // Render rows with clickable Case Name
+            let html = '';
+            pageData.forEach((row, rowIndex) => {
+                const rowId = `${type}-row-${start + rowIndex}`;
+                html += '<tr>' + columns.map(col => {
+                    const value = row[col] || '';
+                    // Make Case Name clickable
+                    if (col === 'Case Name') {
+                        return `<td><a href="#" class="case-name-link" data-type="${type}" data-index="${start + rowIndex}" onclick="showCaseDetails('${type}', ${start + rowIndex}); return false;">${value}</a></td>`;
+                    }
+                    // Make links clickable
+                    if (value.startsWith('http://') || value.startsWith('https://')) {
+                        return `<td><a href="${value}" target="_blank">${value}</a></td>`;
+                    }
+                    return `<td>${value}</td>`;
+                }).join('') + '</tr>';
+            });
+            tbody.innerHTML = html;
+
+            // Update info
+            if (tableInfo) {
+                tableInfo.textContent = `Showing ${start + 1}-${end} of ${data.length} cases`;
+            }
+
+            // Update pagination
+            state.currentPage = page;
+            updatePagination(type, totalPages);
+        }
+
+        // Update pagination controls
+        function updatePagination(type, totalPages) {
+            const pagination = document.getElementById(`${type}-pagination`);
+            const state = paginationState[type];
+            const currentPage = state.currentPage;
+
+            if (totalPages <= 1) {
+                pagination.innerHTML = '';
+                return;
+            }
+
+            let html = '<div class="pagination-controls">';
+            
+            // Previous button
+            html += `<button onclick="changePage('${type}', ${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>Previous</button>`;
+            
+            // Page numbers
+            const maxPages = 10;
+            let startPage = Math.max(1, currentPage - Math.floor(maxPages / 2));
+            let endPage = Math.min(totalPages, startPage + maxPages - 1);
+            
+            if (startPage > 1) {
+                html += `<button onclick="changePage('${type}', 1)">1</button>`;
+                if (startPage > 2) html += '<span>...</span>';
+            }
+            
+            for (let i = startPage; i <= endPage; i++) {
+                html += `<button class="${i === currentPage ? 'active' : ''}" onclick="changePage('${type}', ${i})">${i}</button>`;
+            }
+            
+            if (endPage < totalPages) {
+                if (endPage < totalPages - 1) html += '<span>...</span>';
+                html += `<button onclick="changePage('${type}', ${totalPages})">${totalPages}</button>`;
+            }
+            
+            // Next button
+            html += `<button onclick="changePage('${type}', ${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>Next</button>`;
+            
+            html += '</div>';
+            pagination.innerHTML = html;
+        }
+
+        // Change page
+        function changePage(type, page) {
+            const state = paginationState[type];
+            const totalPages = Math.ceil(state.filteredData.length / state.pageSize);
+            if (page < 1 || page > totalPages) return;
+            renderTablePage(type, page);
+            // Scroll to top of table
+            document.getElementById(`${type}-data-table`).scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // Filter table
+        function filterTable(type) {
+            const searchInput = document.getElementById(`${type}-search`).value.toLowerCase();
+            const statusFilter = document.getElementById(`${type}-status-filter`).value;
+            const data = window[`${type}TableData`] || [];
+
+            // Filter data
+            const filtered = data.filter(row => {
+                const searchMatch = !searchInput || Object.values(row).some(val => 
+                    String(val).toLowerCase().includes(searchInput)
+                );
+                const statusMatch = !statusFilter || (row['Status'] || 'Unknown') === statusFilter;
+                return searchMatch && statusMatch;
+            });
+
+            // Update filtered data and render first page
+            paginationState[type].filteredData = filtered;
+            paginationState[type].currentPage = 1;
+            renderTablePage(type, 1);
+        }
+
+        // Scroll spy for sidebar navigation
+        function initScrollSpy(type) {
+            const sections = document.querySelectorAll(`#${type}-tab .content-section`);
+            const sidebarBtns = document.querySelectorAll(`#${type}-tab .sidebar-btn`);
+
+            function updateActiveButton() {
+                let currentSection = '';
+                const scrollPosition = window.pageYOffset + 150;
+
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.offsetHeight;
+                    if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                        currentSection = section.id.replace(`${type}-`, '');
+                    }
+                });
+
+                sidebarBtns.forEach(btn => {
+                    btn.classList.remove('active');
+                    if (btn.getAttribute('onclick').includes(currentSection)) {
+                        btn.classList.add('active');
+                    }
+                });
+            }
+
+            window.addEventListener('scroll', updateActiveButton);
+            updateActiveButton();
+        }
+
+        // Show case details modal
+        function showCaseDetails(type, index) {
+            const data = window[`${type}TableData`];
+            if (!data || !data[index]) return;
+            
+            const row = data[index];
+            const modal = document.getElementById(`${type}-case-details`);
+            const titleEl = document.getElementById(`${type}-case-details-title`);
+            const tableEl = document.getElementById(`${type}-case-details-table`);
+            
+            // Set title
+            const caseName = row['Case Name'] || 'Unknown Case';
+            titleEl.textContent = caseName;
+            
+            // Get all columns except the main table columns
+            const allColumns = Object.keys(row);
+            const detailColumns = allColumns.filter(col => !mainTableColumns.includes(col));
+            
+            // Create details table
+            let html = '<table class="case-details-table"><tbody>';
+            
+            // First show main columns
+            mainTableColumns.forEach(col => {
+                const value = row[col] || '';
+                if (value) {
+                    const englishName = getEnglishColumnName(col);
+                    html += `<tr><th>${englishName}</th><td>${formatCellValue(value)}</td></tr>`;
+                }
+            });
+            
+            // Then show detail columns
+            detailColumns.forEach(col => {
+                const value = row[col] || '';
+                if (value && String(value).trim() !== '') {
+                    const englishName = getEnglishColumnName(col);
+                    html += `<tr><th>${englishName}</th><td>${formatCellValue(value)}</td></tr>`;
+                }
+            });
+            
+            html += '</tbody></table>';
+            tableEl.innerHTML = html;
+            
+            // Show modal
+            modal.style.display = 'block';
+        }
+        
+        // Close case details modal
+        function closeCaseDetails(type) {
+            const modal = document.getElementById(`${type}-case-details`);
+            modal.style.display = 'none';
+        }
+        
+        // Format cell value (handle links, line breaks, etc.)
+        function formatCellValue(value) {
+            if (!value) return '';
+            const str = String(value);
+            
+            // Check if it's a URL
+            if (str.startsWith('http://') || str.startsWith('https://')) {
+                return `<a href="${str}" target="_blank">${str}</a>`;
+            }
+            
+            // Handle line breaks
+            return str.replace(/\n/g, '<br>');
+        }
+        
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            if (event.target.classList.contains('case-details-modal')) {
+                event.target.style.display = 'none';
+            }
+        }
+
+        // Load initial data
+        window.addEventListener('DOMContentLoaded', () => {
+            loadCSV('claimants');
+            setTimeout(() => {
+                initScrollSpy('claimants');
+            }, 1000);
+        });
+    </script>
+
+    <footer> <p>&copy; 2025 · WHUCOIL. All rights reserved.</p>
+    </footer>
+</body>
+</html>
