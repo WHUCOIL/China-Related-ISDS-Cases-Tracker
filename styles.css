@@ -257,6 +257,17 @@ footer {
   font-size: 0.95rem;
 }
 
+footer a {
+  color: rgba(255, 255, 255, 0.9);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+footer a:hover {
+  color: rgba(255, 255, 255, 1);
+  text-decoration: underline;
+}
+
 .profile {
   font-family: "Inter", "Source Han Sans", system-ui, sans-serif;
   text-align: left;
@@ -269,8 +280,8 @@ footer {
 }
 
 .profile .chinese-name {
-  font-family: "STXingkai", "Xingkai SC", "KaiTi", "楷体", serif;
-  font-size: 1.8rem;
+  font-family: "STZhongsong", "华文中宋", "STSong", "SimSun", serif;
+  font-size: 1.6rem;
   color: var(--ink);
   font-weight: 400;
   margin-bottom: 0px;
@@ -476,8 +487,12 @@ footer {
 
 .sidebar-btn.active {
   background: var(--ink);
-  color: white;
+  color: white !important;
   border-color: var(--ink);
+}
+
+.sidebar-btn.active span {
+  color: white;
 }
 
 .sidebar-btn span {
@@ -900,5 +915,137 @@ footer {
     width: 40px;
     height: 40px;
     font-size: 1.2rem;
+  }
+}
+
+/* Resources Layout */
+.resources-layout {
+  display: flex;
+  gap: 32px;
+  margin-top: 32px;
+}
+
+.resources-list {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.resource-item {
+  background: var(--paper);
+  border-radius: var(--radius);
+  padding: 32px;
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+  transition: all 0.3s ease;
+}
+
+.resource-item:hover {
+  box-shadow: 0 16px 48px rgba(11, 31, 58, 0.12);
+  transform: translateY(-2px);
+}
+
+.resource-header {
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid var(--line);
+}
+
+.resource-header h3 {
+  margin: 0;
+  color: var(--ink);
+  font-size: 1.4rem;
+  font-weight: 600;
+  font-family: "Merriweather", serif;
+}
+
+.resource-content {
+  flex: 1;
+}
+
+.resource-content ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.resource-content li {
+  margin-bottom: 16px;
+  padding-left: 24px;
+  line-height: 1.7;
+  color: var(--ink-soft);
+  position: relative;
+  list-style: none;
+}
+
+.resource-content li::before {
+  content: "—";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--ink);
+  font-weight: normal;
+  font-size: 0.85em;
+  line-height: 1.7;
+}
+
+.resource-content li:last-child {
+  margin-bottom: 0;
+}
+
+.resource-content a {
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s ease;
+}
+
+.resource-content a:hover {
+  border-bottom-color: var(--ink);
+}
+
+.resource-content em {
+  font-style: italic;
+  color: var(--ink-soft);
+}
+
+/* Sidebar button as link */
+.sidebar-btn {
+  text-decoration: none;
+}
+
+.sidebar-btn:visited {
+  color: var(--ink);
+}
+
+.sidebar-btn.active:visited {
+  color: white !important;
+}
+
+@media (max-width: 768px) {
+  .resources-layout {
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .sidebar {
+    flex: 1;
+    min-width: auto;
+  }
+
+  .sidebar-nav {
+    flex-direction: row;
+    position: relative;
+    top: 0;
+    overflow-x: auto;
+  }
+
+  .sidebar-btn {
+    white-space: nowrap;
+    min-width: 150px;
+  }
+
+  .resource-item {
+    padding: 24px;
   }
 }

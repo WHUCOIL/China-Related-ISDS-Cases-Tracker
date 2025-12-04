@@ -29,94 +29,13 @@
                     <span>COMPREHENSIVE DATASET</span>
                 </div>
                 <div class="tabs">
-                    <button class="tab-button tab-blue active" onclick="switchMainTab('claimants', this)">Chinese Investors as Claimants</button>
-                    <button class="tab-button tab-gray" onclick="switchMainTab('respondents', this)">China as Respondents</button>
-                </div>
-            </div>
-
-            <!-- Chinese Investors as Claimants Tab -->
-            <div id="claimants-tab" class="tab-content active">
-                <div class="data-container">
-                    <!-- Sidebar Navigation -->
-                    <aside class="sidebar">
-                        <nav class="sidebar-nav">
-                            <button class="sidebar-btn active" onclick="scrollToSection('claimants', 'charts', this)">
-                                <span>📊</span> Visualizations
-                            </button>
-                            <button class="sidebar-btn" onclick="scrollToSection('claimants', 'table', this)">
-                                <span>📋</span> Case Data & Details
-                            </button>
-                        </nav>
-                    </aside>
-
-                    <!-- Main Content Area -->
-                    <div class="main-content">
-                        <!-- Charts View -->
-                        <section id="claimants-charts" class="content-section">
-                            <div class="section-heading" style="margin-top: 0; border-bottom: none; padding-bottom: 0;">
-                                <h3>Chinese Investors as Claimants - Visualizations</h3>
-                <span>DATA VISUALIZATION</span>
-            </div>
-            <p class="intro">
-                                Interactive charts showing trends and statistics for cases where Chinese investors have initiated ISDS proceedings.
-                            </p>
-
-                            <div class="card">
-                                <h4>Cases by Year of Initiation</h4>
-                                <canvas id="claimants-chart1"></canvas>
-                            </div>
-
-                            <div class="card">
-                                <h4>Cases by Status</h4>
-                                <canvas id="claimants-chart3"></canvas>
-            </div>
-        </section>
-        
-                        <!-- Table View -->
-                        <section id="claimants-table" class="content-section">
-                            <div class="section-heading" style="margin-top: 48px; border-bottom: none; padding-bottom: 0;">
-                                <h3>Chinese Investors as Claimants - Case Data & Details</h3>
-                                <span>COMPREHENSIVE DATASET</span>
-                            </div>
-                            <p class="intro">
-                                Complete case information with search and filter capabilities.
-                            </p>
-                            
-                            <div class="card">
-                                <div class="table-controls">
-                                    <input type="text" id="claimants-search" placeholder="Search cases..." class="search-input" onkeyup="filterTable('claimants')">
-                                    <select id="claimants-status-filter" class="filter-select" onchange="filterTable('claimants')">
-                                        <option value="">All Status</option>
-                                    </select>
-                                    <div class="table-info" id="claimants-table-info"></div>
-                                </div>
-                                <div id="claimants-loading" class="loading-indicator" style="display: none;">
-                                    <p>Loading data...</p>
-                                </div>
-                                <div class="table-wrapper">
-                                    <table id="claimants-data-table" class="data-table">
-                                        <thead></thead>
-                                        <tbody></tbody>
-                                    </table>
-                                </div>
-                                <div class="pagination" id="claimants-pagination"></div>
-                            </div>
-                        </section>
-                        
-                        <!-- Case Details Modal -->
-                        <div id="claimants-case-details" class="case-details-modal" style="display: none;">
-                            <div class="case-details-content">
-                                <span class="case-details-close" onclick="closeCaseDetails('claimants')">&times;</span>
-                                <h3 id="claimants-case-details-title">Case Details</h3>
-                                <div id="claimants-case-details-table"></div>
-                            </div>
-                        </div>
-                    </div>
+                    <button class="tab-button tab-blue active" onclick="switchMainTab('respondents', this)">China as Respondents</button>
+                    <button class="tab-button tab-gray" onclick="switchMainTab('claimants', this)">Chinese Investors as Claimants</button>
                 </div>
             </div>
 
             <!-- China as Respondents Tab -->
-            <div id="respondents-tab" class="tab-content">
+            <div id="respondents-tab" class="tab-content active">
                 <div class="data-container">
                     <!-- Sidebar Navigation -->
                     <aside class="sidebar">
@@ -145,6 +64,16 @@
                             <div class="card">
                                 <h4>Cases by Year of Initiation</h4>
                                 <canvas id="respondents-chart1"></canvas>
+                            </div>
+
+                            <div class="card">
+                                <h4>Investor Nationality Distribution</h4>
+                                <canvas id="respondents-chart4"></canvas>
+                            </div>
+
+                            <div class="card">
+                                <h4>Applicable Treaty Signing Year Distribution</h4>
+                                <canvas id="respondents-chart5"></canvas>
                             </div>
 
                             <div class="card">
@@ -190,6 +119,92 @@
                                 <span class="case-details-close" onclick="closeCaseDetails('respondents')">&times;</span>
                                 <h3 id="respondents-case-details-title">Case Details</h3>
                                 <div id="respondents-case-details-table"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chinese Investors as Claimants Tab -->
+            <div id="claimants-tab" class="tab-content">
+                <div class="data-container">
+                    <!-- Sidebar Navigation -->
+                    <aside class="sidebar">
+                        <nav class="sidebar-nav">
+                            <button class="sidebar-btn active" onclick="scrollToSection('claimants', 'charts', this)">
+                                <span>📊</span> Visualizations
+                            </button>
+                            <button class="sidebar-btn" onclick="scrollToSection('claimants', 'table', this)">
+                                <span>📋</span> Case Data & Details
+                            </button>
+                        </nav>
+                    </aside>
+
+                    <!-- Main Content Area -->
+                    <div class="main-content">
+                        <!-- Charts View -->
+                        <section id="claimants-charts" class="content-section">
+                            <div class="section-heading" style="margin-top: 0; border-bottom: none; padding-bottom: 0;">
+                                <h3>Chinese Investors as Claimants - Visualizations</h3>
+                <span>DATA VISUALIZATION</span>
+            </div>
+            <p class="intro">
+                                Interactive charts showing trends and statistics for cases where Chinese investors have initiated ISDS proceedings.
+                            </p>
+
+                            <div class="card">
+                                <h4>Cases by Year of Initiation</h4>
+                                <canvas id="claimants-chart1"></canvas>
+                            </div>
+
+                            <div class="card">
+                                <h4>Respondent State Distribution</h4>
+                                <canvas id="claimants-chart4"></canvas>
+                            </div>
+
+                            <div class="card">
+                                <h4>Cases by Status</h4>
+                                <canvas id="claimants-chart3"></canvas>
+            </div>
+        </section>
+        
+                        <!-- Table View -->
+                        <section id="claimants-table" class="content-section">
+                            <div class="section-heading" style="margin-top: 48px; border-bottom: none; padding-bottom: 0;">
+                                <h3>Chinese Investors as Claimants - Case Data & Details</h3>
+                                <span>COMPREHENSIVE DATASET</span>
+            </div>
+            <p class="intro">
+                                Complete case information with search and filter capabilities.
+                            </p>
+                            
+                            <div class="card">
+                                <div class="table-controls">
+                                    <input type="text" id="claimants-search" placeholder="Search cases..." class="search-input" onkeyup="filterTable('claimants')">
+                                    <select id="claimants-status-filter" class="filter-select" onchange="filterTable('claimants')">
+                                        <option value="">All Status</option>
+                                    </select>
+                                    <div class="table-info" id="claimants-table-info"></div>
+                                </div>
+                                <div id="claimants-loading" class="loading-indicator" style="display: none;">
+                                    <p>Loading data...</p>
+                                </div>
+                                <div class="table-wrapper">
+                                    <table id="claimants-data-table" class="data-table">
+                                        <thead></thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                                <div class="pagination" id="claimants-pagination"></div>
+                            </div>
+                        </section>
+                        
+                        <!-- Case Details Modal -->
+                        <div id="claimants-case-details" class="case-details-modal" style="display: none;">
+                            <div class="case-details-content">
+                                <span class="case-details-close" onclick="closeCaseDetails('claimants')">&times;</span>
+                                <h3 id="claimants-case-details-title">Case Details</h3>
+                                <div id="claimants-case-details-table"></div>
                             </div>
                         </div>
                     </div>
@@ -628,13 +643,66 @@
             });
 
             // Chart 3: Cases by Status (Pie/Doughnut)
+            // Helper function to normalize status names for matching
+            function normalizeStatus(status) {
+                return status.toLowerCase().trim().replace(/\s+/g, ' ');
+            }
+            
             const statusData = {};
             data.forEach(row => {
-                const status = row['Status'] || 'Unknown';
+                let status = row['Status'] || 'Unknown';
+                // Normalize status: merge "decided in favor of state (in annulment proceeding)" into "decided in favor of state"
+                const normalizedStatus = normalizeStatus(status);
+                if (normalizedStatus.includes('decided in favor of state') && normalizedStatus.includes('annulment')) {
+                    // Use the standard status name
+                    status = 'Decided in favor of State';
+                }
                 statusData[status] = (statusData[status] || 0) + 1;
             });
-            const statuses = Object.keys(statusData);
-            const statusCounts = statuses.map(s => statusData[s]);
+            
+            // Define status order for respondents (with possible variations)
+            const respondentsStatusOrder = [
+                'Decided in favor of State',
+                'Decided in favor of investor',
+                'Settled',
+                'Discontinued',
+                'Pending'
+            ];
+            
+            // Sort statuses based on type
+            let statuses, statusCounts;
+            if (type === 'respondents') {
+                // For respondents, use predefined order
+                statuses = [];
+                statusCounts = [];
+                const normalizedDataKeys = Object.keys(statusData).map(k => normalizeStatus(k));
+                
+                respondentsStatusOrder.forEach(targetStatus => {
+                    const normalizedTarget = normalizeStatus(targetStatus);
+                    // Try to find matching status (case-insensitive, flexible matching)
+                    const matchingIndex = normalizedDataKeys.findIndex(s => 
+                        s === normalizedTarget || 
+                        s.includes(normalizedTarget) || 
+                        normalizedTarget.includes(s)
+                    );
+                    if (matchingIndex !== -1) {
+                        const matchingStatus = Object.keys(statusData)[matchingIndex];
+                        statuses.push(matchingStatus);
+                        statusCounts.push(statusData[matchingStatus]);
+                    }
+                });
+                // Add any remaining statuses not in the predefined order
+                Object.keys(statusData).forEach(status => {
+                    if (!statuses.includes(status)) {
+                        statuses.push(status);
+                        statusCounts.push(statusData[status]);
+                    }
+                });
+            } else {
+                // For claimants, use original order
+                statuses = Object.keys(statusData);
+                statusCounts = statuses.map(s => statusData[s]);
+            }
 
             const ctx3 = document.getElementById(`${type}-chart3`).getContext('2d');
             if (allCharts[`${type}-chart3`]) {
@@ -717,6 +785,352 @@
                     }
                 }
             });
+
+            // Chart 4: Respondent State Distribution (only for claimants)
+            if (type === 'claimants') {
+                const respondentData = {};
+                data.forEach(row => {
+                    const respondent = row['Respondent '] || row['Respondent'] || '';
+                    const respondentStr = String(respondent).trim();
+                    if (respondentStr && respondentStr !== '' && respondentStr !== 'Unknown') {
+                        // Normalize respondent names (handle variations)
+                        const normalized = respondentStr.split(',')[0].trim(); // Take first if multiple
+                        // Remove common prefixes/suffixes
+                        let cleanName = normalized;
+                        if (cleanName.startsWith('Republic of ')) {
+                            cleanName = cleanName.replace('Republic of ', '');
+                        }
+                        if (cleanName.startsWith('People\'s Republic of ')) {
+                            cleanName = cleanName.replace('People\'s Republic of ', '');
+                        }
+                        respondentData[cleanName] = (respondentData[cleanName] || 0) + 1;
+                    }
+                });
+                
+                const respondents = Object.keys(respondentData).sort((a, b) => 
+                    respondentData[b] - respondentData[a] // Sort by count descending
+                );
+                const respondentCounts = respondents.map(r => respondentData[r]);
+                
+                const ctx4 = document.getElementById(`${type}-chart4`).getContext('2d');
+                if (allCharts[`${type}-chart4`]) {
+                    allCharts[`${type}-chart4`].destroy();
+                }
+                
+                // Generate distinct colors for each respondent
+                const respondentColors = [
+                    'rgba(11, 31, 58, 0.95)',      // Deep navy blue
+                    'rgba(200, 155, 60, 0.95)',    // Gold accent
+                    'rgba(0, 102, 102, 0.95)',     // Teal
+                    'rgba(139, 69, 19, 0.95)',     // Saddle brown
+                    'rgba(34, 68, 102, 0.95)',     // Steel blue
+                    'rgba(153, 102, 51, 0.95)',    // Bronze
+                    'rgba(72, 61, 139, 0.95)',     // Dark slate blue
+                    'rgba(85, 107, 47, 0.95)',     // Olive drab
+                    'rgba(128, 0, 32, 0.95)',      // Burgundy
+                    'rgba(25, 25, 112, 0.95)',      // Midnight blue
+                    'rgba(184, 134, 11, 0.95)',    // Dark goldenrod
+                    'rgba(47, 79, 79, 0.95)'       // Dark slate gray
+                ];
+                
+                const respondentColorMap = respondents.map((resp, index) => {
+                    return respondentColors[index % respondentColors.length];
+                });
+                
+                allCharts[`${type}-chart4`] = new Chart(ctx4, {
+                    type: 'bar',
+                    data: {
+                        labels: respondents,
+                        datasets: [{
+                            label: 'Number of Cases',
+                            data: respondentCounts,
+                            backgroundColor: respondentColorMap,
+                            borderColor: 'rgba(255, 255, 255, 1)',
+                            borderWidth: 1.5
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: true,
+                        indexAxis: 'y', // Horizontal bar chart
+                        scales: {
+                            x: {
+                                beginAtZero: true,
+                                ticks: {
+                                    stepSize: 1
+                                },
+                                title: {
+                                    display: true,
+                                    text: 'Number of Cases'
+                                }
+                            },
+                            y: {
+                                title: {
+                                    display: true,
+                                    text: 'Respondent State'
+                                },
+                                ticks: {
+                                    font: {
+                                        size: 11
+                                    }
+                                }
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            tooltip: {
+                                backgroundColor: 'rgba(11, 31, 58, 0.95)',
+                                padding: 12,
+                                titleFont: {
+                                    size: 14,
+                                    weight: '600'
+                                },
+                                bodyFont: {
+                                    size: 13
+                                },
+                                borderColor: 'rgba(200, 155, 60, 0.5)',
+                                borderWidth: 1,
+                                callbacks: {
+                                    label: function(context) {
+                                        const value = context.parsed.x;
+                                        const total = respondentCounts.reduce((a, b) => a + b, 0);
+                                        const percentage = ((value / total) * 100).toFixed(1);
+                                        return `Cases: ${value} (${percentage}%)`;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Chart 4: Investor Nationality Distribution (only for respondents)
+            if (type === 'respondents') {
+                const nationalityData = {};
+                data.forEach(row => {
+                    const nationality = row['Claimant-nationality'] || row[' Claimant-nationality'] || 'Unknown';
+                    const nationalityStr = String(nationality).trim();
+                    if (nationalityStr && nationalityStr !== '' && nationalityStr !== 'Unknown') {
+                        // Normalize nationality names (handle variations)
+                        const normalized = nationalityStr.split(',')[0].trim(); // Take first if multiple
+                        nationalityData[normalized] = (nationalityData[normalized] || 0) + 1;
+                    }
+                });
+                
+                const nationalities = Object.keys(nationalityData).sort((a, b) => 
+                    nationalityData[b] - nationalityData[a] // Sort by count descending
+                );
+                const nationalityCounts = nationalities.map(n => nationalityData[n]);
+                
+                const ctx4 = document.getElementById(`${type}-chart4`).getContext('2d');
+                if (allCharts[`${type}-chart4`]) {
+                    allCharts[`${type}-chart4`].destroy();
+                }
+                
+                // Generate distinct colors for each nationality
+                const nationalityColors = [
+                    'rgba(11, 31, 58, 0.95)',      // Deep navy blue
+                    'rgba(200, 155, 60, 0.95)',    // Gold accent
+                    'rgba(0, 102, 102, 0.95)',     // Teal
+                    'rgba(139, 69, 19, 0.95)',     // Saddle brown
+                    'rgba(34, 68, 102, 0.95)',     // Steel blue
+                    'rgba(153, 102, 51, 0.95)',    // Bronze
+                    'rgba(72, 61, 139, 0.95)',     // Dark slate blue
+                    'rgba(85, 107, 47, 0.95)',     // Olive drab
+                    'rgba(128, 0, 32, 0.95)',      // Burgundy
+                    'rgba(25, 25, 112, 0.95)',      // Midnight blue
+                    'rgba(184, 134, 11, 0.95)',    // Dark goldenrod
+                    'rgba(47, 79, 79, 0.95)'       // Dark slate gray
+                ];
+                
+                const nationalityColorMap = nationalities.map((nat, index) => {
+                    return nationalityColors[index % nationalityColors.length];
+                });
+                
+                allCharts[`${type}-chart4`] = new Chart(ctx4, {
+                    type: 'bar',
+                    data: {
+                        labels: nationalities,
+                        datasets: [{
+                            label: 'Number of Cases',
+                            data: nationalityCounts,
+                            backgroundColor: nationalityColorMap,
+                            borderColor: 'rgba(255, 255, 255, 1)',
+                            borderWidth: 1.5
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: true,
+                        indexAxis: 'y', // Horizontal bar chart
+                        scales: {
+                            x: {
+                                beginAtZero: true,
+                                ticks: {
+                                    stepSize: 1
+                                },
+                                title: {
+                                    display: true,
+                                    text: 'Number of Cases'
+                                }
+                            },
+                            y: {
+                                title: {
+                                    display: true,
+                                    text: 'Investor Nationality'
+                                }
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            tooltip: {
+                                backgroundColor: 'rgba(11, 31, 58, 0.95)',
+                                padding: 12,
+                                titleFont: {
+                                    size: 14,
+                                    weight: '600'
+                                },
+                                bodyFont: {
+                                    size: 13
+                                },
+                                borderColor: 'rgba(200, 155, 60, 0.5)',
+                                borderWidth: 1,
+                                callbacks: {
+                                    label: function(context) {
+                                        const value = context.parsed.x;
+                                        const total = nationalityCounts.reduce((a, b) => a + b, 0);
+                                        const percentage = ((value / total) * 100).toFixed(1);
+                                        return `Cases: ${value} (${percentage}%)`;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Chart 5: Applicable Treaty Signing Year Distribution (only for respondents)
+            if (type === 'respondents') {
+                const yearData = {};
+                data.forEach(row => {
+                    const instruments = row['Instrument(s) Invoked'] || '';
+                    if (instruments && String(instruments).trim() !== '') {
+                        // Extract years from the instruments string
+                        // Pattern: look for (YYYY) or (YY) in the text
+                        const yearPattern = /\((\d{4})\)|\((\d{2})\)/g;
+                        let match;
+                        const years = new Set();
+                        
+                        while ((match = yearPattern.exec(instruments)) !== null) {
+                            let year = match[1] || match[2];
+                            if (year) {
+                                // Convert 2-digit years to 4-digit (assuming 1900s for years < 50, 2000s for years >= 50)
+                                if (year.length === 2) {
+                                    const numYear = parseInt(year);
+                                    year = numYear < 50 ? `19${year}` : `20${year}`;
+                                }
+                                const yearNum = parseInt(year);
+                                // Only include reasonable years (1982-2025)
+                                if (yearNum >= 1982 && yearNum <= 2025) {
+                                    years.add(yearNum);
+                                }
+                            }
+                        }
+                        
+                        // Count each year found
+                        years.forEach(year => {
+                            yearData[year] = (yearData[year] || 0) + 1;
+                        });
+                    }
+                });
+                
+                // Generate all years from 1982 to 2025
+                const allYears = [];
+                for (let year = 1982; year <= 2025; year++) {
+                    allYears.push(year);
+                }
+                
+                // Create data arrays with all years, using 0 for years with no data
+                const yearLabels = allYears.map(y => String(y));
+                const yearCounts = allYears.map(y => yearData[y] || 0);
+                
+                const ctx5 = document.getElementById(`${type}-chart5`).getContext('2d');
+                if (allCharts[`${type}-chart5`]) {
+                    allCharts[`${type}-chart5`].destroy();
+                }
+                
+                allCharts[`${type}-chart5`] = new Chart(ctx5, {
+                    type: 'bar',
+                    data: {
+                        labels: yearLabels,
+                        datasets: [{
+                            label: 'Number of Treaties',
+                            data: yearCounts,
+                            backgroundColor: 'rgba(11, 31, 58, 0.8)',
+                            borderColor: 'rgba(11, 31, 58, 1)',
+                            borderWidth: 1.5
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: true,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    stepSize: 1
+                                },
+                                title: {
+                                    display: true,
+                                    text: 'Number of Treaties'
+                                }
+                            },
+                            x: {
+                                title: {
+                                    display: true,
+                                    text: 'Treaty Signing Year'
+                                },
+                                ticks: {
+                                    maxRotation: 45,
+                                    minRotation: 45,
+                                    autoSkip: true,
+                                    maxTicksLimit: 20
+                                }
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            tooltip: {
+                                backgroundColor: 'rgba(11, 31, 58, 0.95)',
+                                padding: 12,
+                                titleFont: {
+                                    size: 14,
+                                    weight: '600'
+                                },
+                                bodyFont: {
+                                    size: 13
+                                },
+                                borderColor: 'rgba(200, 155, 60, 0.5)',
+                                borderWidth: 1,
+                                callbacks: {
+                                    label: function(context) {
+                                        const value = context.parsed.y;
+                                        const total = yearCounts.reduce((a, b) => a + b, 0);
+                                        const percentage = ((value / total) * 100).toFixed(1);
+                                        return `Treaties: ${value} (${percentage}%)`;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
         }
 
         // Define main table columns (simplified view)
@@ -781,7 +1195,13 @@
             pageData.forEach((row, rowIndex) => {
                 const rowId = `${type}-row-${start + rowIndex}`;
                 html += '<tr>' + columns.map(col => {
-                    const value = row[col] || '';
+                    // Handle column name mapping for 'No' column
+                    let value = '';
+                    if (col === 'No') {
+                        value = row['No'] || row['Number '] || '';
+                    } else {
+                        value = row[col] || '';
+                    }
                     // Make Case Name clickable
                     if (col === 'Case Name') {
                         return `<td><a href="#" class="case-name-link" data-type="${type}" data-index="${start + rowIndex}" onclick="showCaseDetails('${type}', ${start + rowIndex}); return false;">${value}</a></td>`;
@@ -921,30 +1341,87 @@
             const caseName = row['Case Name'] || 'Unknown Case';
             titleEl.textContent = caseName;
             
-            // Get all columns except the main table columns
-            const allColumns = Object.keys(row);
-            const detailColumns = allColumns.filter(col => !mainTableColumns.includes(col));
+            // Define column order for respondents modal
+            const respondentsModalOrder = [
+                'Number ',
+                'Case Name',
+                'Case Number ',
+                'Year of Initiation',
+                'Time ',
+                ' Claimant',
+                'Claimant-nationality',
+                'Representatives for Claimant',
+                'Arbitrator appointed by Claimant ',
+                'Respondent',
+                'Representatives for Respondent',
+                'Arbitrator appointed by Respondent',
+                'President of Tribunal',
+                'Instrument(s) Invoked',
+                'Arbitration Rule',
+                'Administrative Institution',
+                'Subject of Dispute',
+                'Status'
+            ];
             
             // Create details table
             let html = '<table class="case-details-table"><tbody>';
             
-            // First show main columns
-            mainTableColumns.forEach(col => {
-                const value = row[col] || '';
-                if (value) {
-                    const englishName = getEnglishColumnName(col);
-                    html += `<tr><th>${englishName}</th><td>${formatCellValue(value)}</td></tr>`;
-                }
-            });
-            
-            // Then show detail columns
-            detailColumns.forEach(col => {
-                const value = row[col] || '';
-                if (value && String(value).trim() !== '') {
-                    const englishName = getEnglishColumnName(col);
-                    html += `<tr><th>${englishName}</th><td>${formatCellValue(value)}</td></tr>`;
-                }
-            });
+            if (type === 'respondents') {
+                // For respondents, use predefined order
+                respondentsModalOrder.forEach(col => {
+                    // Handle column name mapping for 'Number ' column
+                    let value = '';
+                    if (col === 'Number ') {
+                        value = row['No'] || row['Number '] || '';
+                    } else {
+                        value = row[col] || '';
+                    }
+                    if (value && String(value).trim() !== '') {
+                        const englishName = getEnglishColumnName(col);
+                        html += `<tr><th>${englishName}</th><td>${formatCellValue(value)}</td></tr>`;
+                    }
+                });
+                
+                // Add any remaining columns not in the predefined order
+                const allColumns = Object.keys(row);
+                allColumns.forEach(col => {
+                    if (!respondentsModalOrder.includes(col)) {
+                        const value = row[col] || '';
+                        if (value && String(value).trim() !== '') {
+                            const englishName = getEnglishColumnName(col);
+                            html += `<tr><th>${englishName}</th><td>${formatCellValue(value)}</td></tr>`;
+                        }
+                    }
+                });
+            } else {
+                // For claimants, use original logic (main columns first, then detail columns)
+                const allColumns = Object.keys(row);
+                const detailColumns = allColumns.filter(col => !mainTableColumns.includes(col));
+                
+                // First show main columns
+                mainTableColumns.forEach(col => {
+                    // Handle column name mapping for 'No' column
+                    let value = '';
+                    if (col === 'No') {
+                        value = row['No'] || row['Number '] || '';
+                    } else {
+                        value = row[col] || '';
+                    }
+                    if (value) {
+                        const englishName = getEnglishColumnName(col);
+                        html += `<tr><th>${englishName}</th><td>${formatCellValue(value)}</td></tr>`;
+                    }
+                });
+                
+                // Then show detail columns
+                detailColumns.forEach(col => {
+                    const value = row[col] || '';
+                    if (value && String(value).trim() !== '') {
+                        const englishName = getEnglishColumnName(col);
+                        html += `<tr><th>${englishName}</th><td>${formatCellValue(value)}</td></tr>`;
+                    }
+                });
+            }
             
             html += '</tbody></table>';
             tableEl.innerHTML = html;
@@ -982,14 +1459,45 @@
 
         // Load initial data
         window.addEventListener('DOMContentLoaded', () => {
-            loadCSV('claimants');
+            loadCSV('respondents');
             setTimeout(() => {
-                initScrollSpy('claimants');
+                initScrollSpy('respondents');
             }, 1000);
         });
     </script>
 
-    <footer> <p>&copy; 2025 · WHUCOIL. All rights reserved.</p>
+    <footer> 
+      <p>&copy; 2025 · <a href="https://coil.whu.edu.cn/" target="_blank">WHUCOIL</a>. All rights reserved. <span style="margin-left: 16px; font-size: 0.85rem; opacity: 0.8;">Total Visits: <span id="pageViews">0</span></span></p>
     </footer>
+  <script>
+    // Simple page view counter using localStorage
+    (function() {
+      const viewKey = 'site_page_views';
+      const sessionKey = 'site_session_' + new Date().toDateString();
+      
+      // Check if this is a new session today
+      const todaySession = sessionStorage.getItem(sessionKey);
+      if (!todaySession) {
+        // Increment page views
+        let views = parseInt(localStorage.getItem(viewKey) || '0');
+        views += 1;
+        localStorage.setItem(viewKey, views.toString());
+        sessionStorage.setItem(sessionKey, '1');
+        
+        // Update display
+        const viewElement = document.getElementById('pageViews');
+        if (viewElement) {
+          viewElement.textContent = views.toLocaleString();
+        }
+      } else {
+        // Just display current count
+        const views = parseInt(localStorage.getItem(viewKey) || '0');
+        const viewElement = document.getElementById('pageViews');
+        if (viewElement) {
+          viewElement.textContent = views.toLocaleString();
+        }
+      }
+    })();
+  </script>
 </body>
 </html>

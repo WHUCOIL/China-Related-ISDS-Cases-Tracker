@@ -34,8 +34,7 @@
         <p class="chinese-name"><a href="https://coil.whu.edu.cn/" target="_blank">武汉大学海外投资法律研究中心</a></p>
         <h2>Center of Overseas Investment Law</h2>
         <p class="affiliation">Wuhan University</p>
-        <p class="contact">Contact: <a href="https://keerh1997.github.io/" target="_blank">Dr. Keer Huang</a></p>
-        <p class="info-sharing">We welcome information contributions regarding China-related ISDS cases, including <em>case data</em>, <em>key issues</em>, and <em>research resources</em>. Please contact us at <a href="mailto:keerhuang1997@gmail.com">keerhuang1997@gmail.com</a>. We regularly review submissions, update our content accordingly, and acknowledge all sources.</p>
+        <p class="info-sharing">We welcome the submission of information relevant to China-related ISDS cases, including empirical case data, issue-specific analyses, and research publications. Contributions may be sent to <a href="mailto:keerhuang1997@gmail.com">keerhuang1997@gmail.com</a>.</p>
       </aside>
     </section>
 
@@ -52,7 +51,7 @@
         </article>
 
         <article class="card">
-          <h3>⚖️ Key Issues</h3>
+          <h3>⚖️ Key Legal Issues</h3>
           <p>In-depth analysis of critical dispute points in China-related ISDS cases, including detailed examination of jurisdictional issues, substantive rights, procedural matters, and other core legal topics.</p>
           <a href="dispute_analysis.html">View Analysis →</a>
         </article>
@@ -68,7 +67,37 @@
   </main>
 
   <footer>
-    <p>&copy; 2025 · WHUCOIL. All rights reserved.</p>
+    <p>&copy; 2025 · <a href="https://coil.whu.edu.cn/" target="_blank">WHUCOIL</a>. All rights reserved. <span style="margin-left: 16px; font-size: 0.85rem; opacity: 0.8;">Total Visits: <span id="pageViews">0</span></span></p>
   </footer>
+  <script>
+    // Simple page view counter using localStorage
+    (function() {
+      const viewKey = 'site_page_views';
+      const sessionKey = 'site_session_' + new Date().toDateString();
+      
+      // Check if this is a new session today
+      const todaySession = sessionStorage.getItem(sessionKey);
+      if (!todaySession) {
+        // Increment page views
+        let views = parseInt(localStorage.getItem(viewKey) || '0');
+        views += 1;
+        localStorage.setItem(viewKey, views.toString());
+        sessionStorage.setItem(sessionKey, '1');
+        
+        // Update display
+        const viewElement = document.getElementById('pageViews');
+        if (viewElement) {
+          viewElement.textContent = views.toLocaleString();
+        }
+      } else {
+        // Just display current count
+        const views = parseInt(localStorage.getItem(viewKey) || '0');
+        const viewElement = document.getElementById('pageViews');
+        if (viewElement) {
+          viewElement.textContent = views.toLocaleString();
+        }
+      }
+    })();
+  </script>
 </body>
 </html>

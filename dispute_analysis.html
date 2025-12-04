@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>China-Related ISDS Cases Tracker | Key Issues</title>
+  <title>China-Related ISDS Cases Tracker | Key Legal Issues</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -22,11 +22,11 @@
   <main>
     <section class="section">
       <div class="section-heading">
-        <h2>⚖️ Key Issues</h2>
+        <h2>⚖️ Key Legal Issues</h2>
         <span>JURISDICTION · SUBSTANTIVE RIGHTS · PROCEDURE</span>
       </div>
       <p class="intro">
-        In-depth analysis of critical dispute points in China-related Investor-State Dispute Settlement (ISDS) cases.
+        Critical disputing issues in China-related Investor-State Dispute Settlement (ISDS) cases.
       </p>
 
       <div class="issues-list">
@@ -35,14 +35,35 @@
           <div class="issue-content">
             <h3>Treaty Interpretation of Limited Jurisdiction Clauses under Earlier Chinese IIAs</h3>
             <p>Analysis of how limited jurisdiction clauses in earlier Chinese International Investment Agreements (IIAs) have been interpreted and applied in ISDS proceedings, examining the scope and boundaries of arbitral tribunals' jurisdiction.</p>
+            <div style="margin: 16px 0; padding: 16px; border: 1px solid var(--line); border-radius: var(--radius); background: rgba(11, 31, 58, 0.02); font-size: 0.9em; line-height: 1.6;">
+              <strong>Example:</strong> <span style="font-size: 0.85em;">Article 8.3, China-Peru BIT (1994):</span><br><br><em>"If <strong>a dispute involving the amount of compensation for expropriation</strong> cannot be settled within six months after resort to negotiations as specified in Paragraph 1 of this Article, it may be submitted at the request of either party to the international arbitration of the International Center for Settlement of Investment Disputes (ICSID)…."</em>
+            </div>
+            <table style="margin-top: 16px; width: 100%; border-collapse: collapse; table-layout: fixed;">
+              <tr>
+                <td style="width: 50%; padding: 12px; border: 1px solid var(--line); background: rgba(11, 31, 58, 0.02); font-weight: 600; text-align: center;">Narrow Interpretation</td>
+                <td style="width: 50%; padding: 12px; border: 1px solid var(--line); background: rgba(11, 31, 58, 0.02); font-weight: 600; text-align: center;">Broad Interpretation</td>
+              </tr>
+              <tr>
+                <td style="width: 50%; padding: 12px; border: 1px solid var(--line); vertical-align: top; font-size: 0.9em;">The clause excludes disputes involving the occurrence of an expropriation.</td>
+                <td style="width: 50%; padding: 12px; border: 1px solid var(--line); vertical-align: top; font-size: 0.9em;">The tribunal has the jurisdiction to decide not only questions concerning the amount of compensation for expropriation but also questions concerning the existence and unlawfulness of expropriation.</td>
+              </tr>
+            </table>
           </div>
         </article>
 
         <article class="issue-item">
           <div class="issue-number">?</div>
           <div class="issue-content">
-            <h3>Application of Chinese IIAs to Hong Kong SAR and Macau SAR</h3>
+            <h3>The Application of Chinese IIAs to Hong Kong SAR and Macau SAR</h3>
             <p>Examination of the application and interpretation of Chinese investment treaties to the Hong Kong Special Administrative Region and Macau Special Administrative Region, including jurisdictional questions and treaty coverage.</p>
+          </div>
+        </article>
+
+        <article class="issue-item">
+          <div class="issue-number">?</div>
+          <div class="issue-content">
+            <h3>The Identity of Chinese SOEs as Qualified Investors</h3>
+            <p>Analysis of the qualification of Chinese State-Owned Enterprises (SOEs) as investors under international investment agreements, examining the criteria for investor status, the relationship between SOEs and the state, and the implications for ISDS jurisdiction and substantive protection.</p>
           </div>
         </article>
       </div>
@@ -50,8 +71,38 @@
   </main>
 
   <footer>
-    <p>&copy; 2025 · WHUCOIL. All rights reserved.</p>
+    <p>&copy; 2025 · <a href="https://coil.whu.edu.cn/" target="_blank">WHUCOIL</a>. All rights reserved. <span style="margin-left: 16px; font-size: 0.85rem; opacity: 0.8;">Total Visits: <span id="pageViews">0</span></span></p>
   </footer>
+  <script>
+    // Simple page view counter using localStorage
+    (function() {
+      const viewKey = 'site_page_views';
+      const sessionKey = 'site_session_' + new Date().toDateString();
+      
+      // Check if this is a new session today
+      const todaySession = sessionStorage.getItem(sessionKey);
+      if (!todaySession) {
+        // Increment page views
+        let views = parseInt(localStorage.getItem(viewKey) || '0');
+        views += 1;
+        localStorage.setItem(viewKey, views.toString());
+        sessionStorage.setItem(sessionKey, '1');
+        
+        // Update display
+        const viewElement = document.getElementById('pageViews');
+        if (viewElement) {
+          viewElement.textContent = views.toLocaleString();
+        }
+      } else {
+        // Just display current count
+        const views = parseInt(localStorage.getItem(viewKey) || '0');
+        const viewElement = document.getElementById('pageViews');
+        if (viewElement) {
+          viewElement.textContent = views.toLocaleString();
+        }
+      }
+    })();
+  </script>
 </body>
 </html>
 
