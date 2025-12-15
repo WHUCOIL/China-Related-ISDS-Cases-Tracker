@@ -77,6 +77,11 @@
                             </div>
 
                             <div class="card">
+                                <h4>Arbitration Rules Distribution</h4>
+                                <canvas id="respondents-chart6"></canvas>
+                            </div>
+
+                            <div class="card">
                                 <h4>Cases by Status</h4>
                                 <canvas id="respondents-chart3"></canvas>
                             </div>
@@ -110,6 +115,7 @@
                                     </table>
                                 </div>
                                 <div class="pagination" id="respondents-pagination"></div>
+                                <p style="margin-top: 24px; text-align: left; font-size: 0.85rem; color: var(--muted);">Last updated: 25/12/01</p>
                             </div>
                         </section>
                         
@@ -163,6 +169,16 @@
                             </div>
 
                             <div class="card">
+                                <h4>Applicable Treaty Signing Year Distribution</h4>
+                                <canvas id="claimants-chart5"></canvas>
+                            </div>
+
+                            <div class="card">
+                                <h4>Arbitration Rules Distribution</h4>
+                                <canvas id="claimants-chart6"></canvas>
+                            </div>
+
+                            <div class="card">
                                 <h4>Cases by Status</h4>
                                 <canvas id="claimants-chart3"></canvas>
             </div>
@@ -196,6 +212,7 @@
                                     </table>
                                 </div>
                                 <div class="pagination" id="claimants-pagination"></div>
+                                <p style="margin-top: 24px; text-align: left; font-size: 0.85rem; color: var(--muted);">Last updated: 25/12/01</p>
                             </div>
                         </section>
                         
@@ -1013,8 +1030,8 @@
                 });
             }
 
-            // Chart 5: Applicable Treaty Signing Year Distribution (only for respondents)
-            if (type === 'respondents') {
+            // Chart 5: Applicable Treaty Signing Year Distribution (for both respondents and claimants)
+            if (type === 'respondents' || type === 'claimants') {
                 const yearData = {};
                 data.forEach(row => {
                     const instruments = row['Instrument(s) Invoked'] || '';
@@ -1124,6 +1141,114 @@
                                         const total = yearCounts.reduce((a, b) => a + b, 0);
                                         const percentage = ((value / total) * 100).toFixed(1);
                                         return `Treaties: ${value} (${percentage}%)`;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Chart 6: Arbitration Rules Distribution (for both respondents and claimants)
+            if (type === 'respondents' || type === 'claimants') {
+                const ruleData = {};
+                data.forEach(row => {
+                    const rule = row['Arbitration Rule'] || '';
+                    if (rule && String(rule).trim() !== '') {
+                        // Normalize rule names
+                        let normalizedRule = String(rule).trim().toLowerCase();
+                        
+                        // Group rules into main categories
+                        if (normalizedRule.includes('icsid')) {
+                            normalizedRule = 'ICSID Convention - Arbitration Rules';
+                        } else if (normalizedRule.includes('uncitral') || normalizedRule.includes('ad-hoc') || normalizedRule.includes('ad hoc')) {
+                            normalizedRule = 'UNCITRAL and/or Ad-Hoc';
+                        } else if (normalizedRule === '' || normalizedRule === 'unclear' || normalizedRule === 'unknown' || normalizedRule === 'n/a') {
+                            normalizedRule = 'Unclear';
+                        } else {
+                            // For other rules, categorize as "Unclear"
+                            normalizedRule = 'Unclear';
+                        }
+                        
+                        ruleData[normalizedRule] = (ruleData[normalizedRule] || 0) + 1;
+                    } else {
+                        // Empty rule field
+                        ruleData['Unclear'] = (ruleData['Unclear'] || 0) + 1;
+                    }
+                });
+                
+                // Sort rules by count (descending)
+                const sortedRules = Object.keys(ruleData).sort((a, b) => ruleData[b] - ruleData[a]);
+                const ruleCounts = sortedRules.map(r => ruleData[r]);
+                
+                const ctx6 = document.getElementById(`${type}-chart6`).getContext('2d');
+                if (allCharts[`${type}-chart6`]) {
+                    allCharts[`${type}-chart6`].destroy();
+                }
+                
+                // Academic color palette for rules
+                const ruleColors = [
+                    'rgba(11, 31, 58, 0.95)',      // Deep navy blue (primary)
+                    'rgba(200, 155, 60, 0.95)',    // Gold accent
+                    'rgba(0, 102, 102, 0.95)',     // Teal
+                    'rgba(139, 69, 19, 0.95)',     // Saddle brown
+                    'rgba(34, 68, 102, 0.95)',     // Steel blue
+                    'rgba(153, 102, 51, 0.95)',    // Bronze
+                    'rgba(72, 61, 139, 0.95)',     // Dark slate blue
+                    'rgba(85, 107, 47, 0.95)',     // Olive drab
+                    'rgba(128, 0, 32, 0.95)',      // Burgundy
+                    'rgba(25, 25, 112, 0.95)'       // Midnight blue
+                ];
+                
+                const ruleColorMap = sortedRules.map((rule, index) => {
+                    return ruleColors[index % ruleColors.length];
+                });
+                
+                allCharts[`${type}-chart6`] = new Chart(ctx6, {
+                    type: 'doughnut',
+                    data: {
+                        labels: sortedRules,
+                        datasets: [{
+                            data: ruleCounts,
+                            backgroundColor: ruleColorMap,
+                            borderColor: 'rgba(255, 255, 255, 0.8)',
+                            borderWidth: 2
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: true,
+                        plugins: {
+                            legend: {
+                                position: 'right',
+                                labels: {
+                                    padding: 15,
+                                    font: {
+                                        size: 12
+                                    },
+                                    usePointStyle: true,
+                                    pointStyle: 'circle'
+                                }
+                            },
+                            tooltip: {
+                                backgroundColor: 'rgba(11, 31, 58, 0.95)',
+                                padding: 12,
+                                titleFont: {
+                                    size: 14,
+                                    weight: '600'
+                                },
+                                bodyFont: {
+                                    size: 13
+                                },
+                                borderColor: 'rgba(200, 155, 60, 0.5)',
+                                borderWidth: 1,
+                                callbacks: {
+                                    label: function(context) {
+                                        const label = context.label || '';
+                                        const value = context.parsed || 0;
+                                        const total = ruleCounts.reduce((a, b) => a + b, 0);
+                                        const percentage = ((value / total) * 100).toFixed(1);
+                                        return `${label}: ${value} (${percentage}%)`;
                                     }
                                 }
                             }
